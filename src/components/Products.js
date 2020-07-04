@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import axios from 'axios';
+import React, { Fragment, Component } from 'react';
+
 import { 
         Badge, Card, CardImg, 
         CardBody, CardTitle, 
@@ -7,18 +7,19 @@ import {
       } from 'reactstrap';
       import prod from '../prod.svg';
 
-function Product() {
+class Product extends Component {
+  render() {
     return (
       <Fragment>
         <div className="container">
           <div className="row">
-            <div className="col-sm-3"> 
+            <div className="col-sm-4"> 
               <Card>
                 <CardImg top src={ prod } alt="Card image cap" />
                 <CardBody>
                     <CardTitle><strong>R$ 1.500</strong> <span>25% OFF</span></CardTitle>
                     <CardSubtitle>12x 62,42 sem juros</CardSubtitle>
-                    <CardText><strong>Nome do Vendedor</strong></CardText>
+                    <CardText><strong>{this.props.category}</strong></CardText>
                 </CardBody>
               </Card>
             </div>         
@@ -26,6 +27,6 @@ function Product() {
         </div>
       </Fragment>
     ); 
+  }
 }
-
 export default Product;
