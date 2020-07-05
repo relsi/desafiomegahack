@@ -6,29 +6,56 @@ import {Container, Row, Col,  Card, CardImg, CardBody,
 import axios from 'axios';
 import './App.css'
 import logo_img from './logo_img.jpg'
+
 function App(){
 
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState({results:[]})
   const [productCategory, setProductCategory] = useState("MLB1403")
-  const [productState, setProductState] = useState("TUxCUFJJT0xkYzM0")
-  const [productCity, setProductCity] = useState("TUxCQ1BPUjgwZTJl")
+  const [productState, setProductState] = useState()
+  const [productCity, setProductCity] = useState()
   const [selectState, setSelectState] = useState({states:[]})
   const [selectCity, setSelectCity] = useState({cities:[]})
   const [loading, setLoading] = useState(false)
+  const [loadStates, setLoadStates] = useState(false)
+  const [loadCities, setLoadCities] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
       const result = await axios.get(`https://api.mercadolibre.com/classified_locations/countries/BR`)
-      setSelectState(result.data);      
+      setSelectState(result.data);
+      setLoadStates(true)
     }
     fetchData()
   }, []);
 
   useEffect(() => {
     async function fetchData() {
+      const getLocation = await axios.get(`http://ip-api.com/json`)
+      const location = getLocation.data
+      selectState.states.map(state =>
+        state.name == location['regionName'] ? setProductState(state.id) : ""
+      )
+    }
+    fetchData()
+  }, [loadStates]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const getLocation = await axios.get(`http://ip-api.com/json`)
+      const location = getLocation.data
+      selectCity.cities.map(city =>
+        city.name == location['city'] ? setProductCity(city.id) : ""
+      )
+    }
+    fetchData()
+  }, [loadCities]);
+
+  useEffect(() => {
+    async function fetchData() {
       const result = await axios.get(`https://api.mercadolibre.com/classified_locations/states/${productState}`)
-      setSelectCity(result.data);      
+      setSelectCity(result.data);
+      setLoadCities(true)
     }
     fetchData()
   }, [productState]);
@@ -99,8 +126,8 @@ function App(){
                           onChange={e => setProductCity(e.target.value)}                      
                       >
                         <option>Selecione a Cidade</option>
-                        {selectCity.cities.map(state =>
-                            <option value={state.id}>{state.name}</option>
+                        {selectCity.cities.map(city =>
+                            <option value={city.id}>{city.name}</option>
                         )}
                       </Input>
                       </FormGroup>
