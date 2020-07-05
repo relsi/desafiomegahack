@@ -5,7 +5,7 @@ import {Container, Row, Col,  Card, CardImg, CardBody,
       } from 'reactstrap'
 import axios from 'axios';
 import './App.css'
-import logo from './logo.svg'
+import logo_img from './logo_img.jpg'
 function App(){
 
   const [categories, setCategories] = useState([])
@@ -69,7 +69,7 @@ function App(){
               <Row noGutters className="position-relative w-100 align-items-left">
               <Col md={{ size: 2}} className="d-flex mr-3 justify-content-xs-start justify-content-lg-left" >
                   <NavbarBrand className="d-inline-block p-0" href="/" style={{ width: 120 }}>
-                  <img src={logo} alt="logo" className="position-relative img-fluid" />
+                  <img src={logo_img} alt="logo" className="position-relative img-fluid" />
                   </NavbarBrand>
               </Col>
               <Col className="d-none d-lg-flex justify-content-left">
