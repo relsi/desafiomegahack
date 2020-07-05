@@ -5,7 +5,7 @@ import {Container, Row, Col,  Card, CardImg, CardBody,
       } from 'reactstrap'
 import axios from 'axios';
 import './App.css'
-import logo_img from './logo_img.jpg'
+import logo_img from './logo.png'
 
 function App(){
 
@@ -93,11 +93,11 @@ function App(){
   return (
     <div>
       <header>
-          <Navbar fixed="top" color="light" light expand="xs" className="border-bottom border-gray bg-white" style={{ height: 80 }}>
+          <Navbar fixed="top" color="light" light expand="xs" className="border-bottom border-gray" style={{ height: 80 }}>
           <Container>
               <Row noGutters className="position-relative w-100 align-items-left">
               <Col md={{ size: 2}} className="d-flex mr-3 justify-content-xs-start justify-content-lg-left" >
-                  <NavbarBrand className="d-inline-block p-0" href="/" style={{ width: 120 }}>
+                  <NavbarBrand className="d-inline-block p-0" href="/" style={{ width: 140 }}>
                   <img src={logo_img} alt="logo" className="position-relative img-fluid" />
                   </NavbarBrand>
               </Col>
@@ -140,9 +140,11 @@ function App(){
       </header>
       <main className="my-5 py-5">
           <Container className="px-0">
-          <Row noGutters className="pt-2 pt-md-5 w-100 px-4 px-xl-0 position-relative">
+          <Row noGutters className="pt-2 w-100 px-4 px-xl-0 position-relative">
   				<div className="col-md-4">
-  					<div className="control-box p-3">
+            
+  					<div className="control-box p-3 mt-5">
+              <strong className=" mb-3 d-block">Categorias</strong>
               <ul>
               {categories.map(category => 
                   <li>
@@ -178,9 +180,9 @@ function App(){
                       </>
                     :
                       products.results.map(product =>
-                        <Col xs={{size:6}} className="product-card">
-                          <Card >
-                            <CardImg top src={ product.thumbnail } alt={ product.title } />
+                        <Col xs={{size:6}} className="p-1" >
+                          <Card className="product-card">
+                              <CardImg top src={ product.thumbnail } alt={ product.title } className="p-3"  />
                             <CardBody>
                                 <CardTitle><strong>R$ { product.price }</strong></CardTitle>
                                 <CardSubtitle>{ product.title }</CardSubtitle>

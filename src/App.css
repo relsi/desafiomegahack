@@ -1,3 +1,18 @@
+
+body {
+  background: #f0f3f9;
+}
+
+nav.navbar {
+  border: 0 !important;
+  background: #fde103 !important;
+  background: linear-gradient(90deg, #ecc125 0%, #fde103 100%)  !important;
+}
+
+.form-control {
+  border: 0;
+}
+
 .card-img, .card-img-bottom, .card-img-top {
   flex-shrink: 0;
   width: 40% !important;
@@ -6,9 +21,38 @@
 
 }
 
+.control-box {
+  color: #333;
+  font-size: 15px;
+}
+
+.control-box ul li{
+  list-style: none;
+}
+
+.control-box ul {
+  padding: 0;
+}
+
+.control-box ul li a{
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 3px 0;
+  display: block;
+}
+
+.control-box ul li a:hover {
+  color: #666;
+}
+
 .card {
   flex-direction: inherit;
   border: none;
+}
+
+.card-subtitle {
+  font-size: 12px;
 }
 
 .product-card img{
@@ -18,3 +62,5 @@
 #selCity{
   margin-left: 15px;
 }
+
+
