@@ -1,8 +1,9 @@
 import React, {useState, useEffect } from 'react'
 import {Container, Row, Col,  Card, CardImg, CardText, CardBody,
-        CardTitle, CardSubtitle, Form, Input, Button, Navbar, Nav,
+        CardTitle, CardSubtitle, Form, Input, Navbar, Nav,
         NavbarBrand, UncontrolledDropdown,
-        DropdownToggle, DropdownMenu, DropdownItem
+        DropdownToggle, DropdownMenu, DropdownItem,
+        Button, FormGroup, Label, FormText
       } from 'reactstrap'
 import axios from 'axios';
 import './App.css'
@@ -45,7 +46,6 @@ function App(){
     <div>
       <header>
           <Navbar fixed="top" color="light" light expand="xs" className="border-bottom border-gray bg-white" style={{ height: 80 }}>
-          
           <Container>
               <Row noGutters className="position-relative w-100 align-items-left">
               <Col md={{ size: 2}} className="d-flex mr-3 justify-content-xs-start justify-content-lg-left" >
@@ -55,17 +55,23 @@ function App(){
               </Col>
               <Col className="d-none d-lg-flex justify-content-left">
                   <Nav className="mrx-auto" navbar>
-                  <UncontrolledDropdown className="d-flex align-items-center" nav inNavbar>
-                      <DropdownToggle className="font-weight-bold" nav caret>Estados</DropdownToggle>
-                      <DropdownMenu right>
-                      {selectState.states.map(state =>
-                        <DropdownItem>{state.name}</DropdownItem>
-                      )}
-                      </DropdownMenu>
-                  </UncontrolledDropdown>
+                    <Form inline>
+                      <FormGroup>
+                      <Input type="select" name="selState" id="selState">
+                        <option>Selecione o Estado</option>
+                        {selectState.states.map(state =>
+                            <option>{state.name}</option>
+                        )}
+                      </Input>
+                      </FormGroup>
+                      <FormGroup>
+                      <Input type="select" name="selCity" id="selCity">
+                        <option>Selecione a Cidade</option>
+                      </Input>
+                      </FormGroup>
+                    </Form>
                   </Nav>
               </Col>
-                          
               <Col className="d-none d-lg-flex justify-content-start">
                   <Form inline>
                   <Input type="search" className="mr-1" placeholder="Insira seu endereço" />
