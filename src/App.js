@@ -1,13 +1,9 @@
 import React, { Fragment, Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col,  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button } from 'reactstrap';
 import axios from 'axios';
 import Header from './components/Header';
-import { 
-  Badge, Card, CardImg, 
-  CardBody, CardTitle, 
-  CardText, CardSubtitle 
-} from 'reactstrap';
-
+import './App.css'
 class App extends Component {
   constructor(props){
     super(props)
@@ -28,24 +24,23 @@ class App extends Component {
         const categories = res.data;
         this.setState({ categories });
     })
-
-    axios.get(`https://api.mercadolibre.com/sites/MLB/search?category=${this.state.prodCategory}&state=${this.state.prodState}&city=${this.state.prodCity}`)
-    .then(res => {
-        const products = res.data['results'];
-        this.setState({ products });
-    })
+    this.changeCategory(this.state.prodCategory)
   }
 
-  changeCategory(category){
-   this.setState({loadingProducts:true})
-   this.setState({prodCategory:category})
+    changeCategory(category){
+    this.setState({loadingProducts:true})
+    this.setState({ products: [] });
+
+    this.setState({prodCategory:category})
     axios.get(`https://api.mercadolibre.com/sites/MLB/search?category=${this.state.prodCategory}&state=${this.state.prodState}&city=${this.state.prodCity}`)
-    .then(res => {
+      .then(res => {
         const products = res.data['results'];
         this.setState({ products });
         this.setState({loadingProducts:false})
+
     })
   }
+
   render() {
 
   return (
@@ -67,23 +62,27 @@ class App extends Component {
   					</div>
   				</div>
           <div class="col-md-8">
+          <Row noGutters className="pt-2 pt-md-5 w-100 px-4 px-xl-0 position-relative">
+            
             {this.state.loadingProducts ? (
+
                 <h1>Aguarde. Carregando Produtos</h1>
             ) : (
-            this.state.products.map(product =>
-                <div className="row col-sm-12">
-                  <div className="col-sm-4"> 
-                    <Card>
-                      <CardImg top src={ product.thumbnail } alt={ product.title } />
-                      <CardBody>
-                          <CardTitle><strong>R$ { product.price }</strong></CardTitle>
-                          <CardSubtitle>{ product.title }</CardSubtitle>
-                      </CardBody>
-                    </Card>
-                  </div>         
-                </div>
+
+             this.state.products.map(product =>
+                <Col xs={{size:6}} className="product-card">
+                  <Card >
+                    <CardImg top src={ product.thumbnail } alt={ product.title } />
+                    <CardBody>
+                        <CardTitle><strong>R$ { product.price }</strong></CardTitle>
+                        <CardSubtitle>{ product.title }</CardSubtitle>
+                    </CardBody>
+                  </Card>
+                </Col>
               ))
-            }              
+            }
+          </Row>
+
           </div>
           </Row>
         </Container>
