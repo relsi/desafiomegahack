@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from '../logo.svg';
+import React from 'react'
+import logo from '../logo.svg'
 import {
   Container, Row, Col, Form, Input, Button, Navbar, Nav,
   NavbarBrand, NavLink, NavItem, UncontrolledDropdown,
   DropdownToggle, DropdownMenu, DropdownItem
-} from 'reactstrap';
+} from 'reactstrap'
 
 function Header(){
     return (
@@ -44,6 +44,6 @@ function Header(){
             
             </Navbar>
         </header>
-    );
+    )
 }
-export default Header;
+export default Header
