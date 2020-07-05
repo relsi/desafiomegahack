@@ -15,6 +15,7 @@ function App(){
   const [productCity, setProductCity] = useState("TUxCQ1BPUjgwZTJl")
   const [selectState, setSelectState] = useState({states:[]})
   const [selectCity, setSelectCity] = useState({cities:[]})
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -59,6 +60,7 @@ function App(){
    async function changeCategory(prodCategory, prodState, prodCity) {
       const result = await axios.get(`https://api.mercadolibre.com/sites/MLB/search?category=${prodCategory}&state=${prodState}&city=${prodCity}`)
       setProducts(result.data)
+      setLoading(false)
   }
 
   return (
@@ -109,9 +111,8 @@ function App(){
           </Container>
           </Navbar>
       </header>
-
       <main className="my-5 py-5">
-        <Container className="px-0">
+          <Container className="px-0">
           <Row noGutters className="pt-2 pt-md-5 w-100 px-4 px-xl-0 position-relative">
   				<div className="col-md-4">
   					<div className="control-box p-3">
@@ -120,6 +121,7 @@ function App(){
                   <li>
                     <a href="#" onClick={() =>{
                       setProductCategory(category.id)
+                      setLoading(true)
                       changeCategory(
                         category.id,
                         productState,
@@ -136,17 +138,30 @@ function App(){
   				</div>
           <div className="col-md-8">
             <Row noGutters className="pt-2 pt-md-5 w-100 px-4 px-xl-0 position-relative">
-              {products.results.map(product =>
-                  <Col xs={{size:6}} className="product-card">
-                    <Card >
-                      <CardImg top src={ product.thumbnail } alt={ product.title } />
-                      <CardBody>
-                          <CardTitle><strong>R$ { product.price }</strong></CardTitle>
-                          <CardSubtitle>{ product.title }</CardSubtitle>
-                      </CardBody>
-                    </Card>
-                  </Col>
-                )}
+              {products.results.length == 0 ? 
+                    <>
+                    <h1>Sem Produtos</h1>
+                    <h3>Tente Selecionar uma categoria diferente, ou trocar a cidade</h3>
+                    </>
+                   : 
+                    loading ?
+                      <> 
+                        <h1>Carregando os Produtos</h1>
+                        <h3>Aguarde um momento por gentileza</h3>
+                      </>
+                    :
+                      products.results.map(product =>
+                        <Col xs={{size:6}} className="product-card">
+                          <Card >
+                            <CardImg top src={ product.thumbnail } alt={ product.title } />
+                            <CardBody>
+                                <CardTitle><strong>R$ { product.price }</strong></CardTitle>
+                                <CardSubtitle>{ product.title }</CardSubtitle>
+                            </CardBody>
+                          </Card>
+                        </Col>
+                      )
+                }
             </Row>
           </div>
           </Row>
